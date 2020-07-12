@@ -26,6 +26,16 @@ npm install --save # installs dependencies
 
 
 
+## Libraries
+
+* babel-cli 
+* babel-preset-env 
+* babel-preset-stage-0
+* express
+* nodemon
+
+
+
 ## Licence
 
 MIT
