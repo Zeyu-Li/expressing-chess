@@ -1,5 +1,5 @@
 // https://www.youtube.com/watch?v=Ud5xKCYQTjM&ab_channel=WebDevSimplified
-// 2:00
+// 1:00
 
 import express, { request, response } from 'express'
 import data from './data/data.json'

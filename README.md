@@ -26,6 +26,18 @@ npm install --save # installs dependencies
 
 
 
+## Start
+
+To start the server do
+
+```bash
+npm start
+```
+
+This will run the server and open a port at [localhost:3000](http://localhost:3000/)
+
+
+
 ## Libraries
 
 * babel-cli 
