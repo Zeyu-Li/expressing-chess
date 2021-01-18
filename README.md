@@ -33,6 +33,7 @@ npm install --save # installs dependencies
 * babel-preset-stage-0
 * express
 * nodemon
+* bcrypt (password encrypt)
 
 
 
