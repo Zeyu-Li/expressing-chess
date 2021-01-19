@@ -1,15 +1,20 @@
 // https://www.youtube.com/watch?v=Ud5xKCYQTjM&ab_channel=WebDevSimplified
 // 1:00
 
-import express, { request, response } from 'express'
+import express from 'express'
 import data from './data/data.json'
+import bcrypt from 'bcrypt'
 
 const app = express()
 const PORT = 3000
 
+// login
+const users = []
+
 // TODO: sockets
 
 app.use(express.static('public'))
+app.use(express.json())
 
 // client side
 app.get('/items', (request, response) => {
@@ -17,19 +22,32 @@ app.get('/items', (request, response) => {
     response.json(data)
 })
 
-app.post('/new', (request, response) => {
-    response.send(`Hello post from ${PORT}`)
+app.post('/users', async (request, response) => {
+    try {
+        const hash = await bcrypt.hash(request.body.password, 10)
+        users.push({name: request.body.name, password: hash})
+        response.status(201).send()
+    } 
+    catch(err) {
+        response.status(500).send()
+    }
 })
 
-app.put('/item', (request, response) => {
-    response.send(`Hello, put from ${PORT}`)
-})
-
-app.delete('/item', (request, response) => {
-    response.send(`Hello, delete from ${PORT}`)
+app.post('/user-login', async (request, response) => {
+    const user = users.find(user => user.name = request.body.name)
+    if (user == null) {
+        return response.status(400).send()
+    }
+    try {
+        bcrypt.compare(request.body.password, user.password)
+    } 
+    else {
+        response.send("Error")
+    } 
+    catch(err) {
+        response.status(500).send()
+    }
 })
 
 // done on server side
-app.listen(PORT, () => {
-    console.log('hello world!')
-})
+app.listen(PORT)
