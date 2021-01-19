@@ -1,6 +1,3 @@
-// https://www.youtube.com/watch?v=Ud5xKCYQTjM&ab_channel=WebDevSimplified
-// 1:00
-
 import express from 'express'
 import data from './data/data.json'
 import bcrypt from 'bcrypt'
@@ -27,8 +24,7 @@ app.post('/users', async (request, response) => {
         const hash = await bcrypt.hash(request.body.password, 10)
         users.push({name: request.body.name, password: hash})
         response.status(201).send()
-    } 
-    catch(err) {
+    } catch (error) {
         response.status(500).send()
     }
 })
@@ -38,13 +34,10 @@ app.post('/user-login', async (request, response) => {
     if (user == null) {
         return response.status(400).send()
     }
+
     try {
         bcrypt.compare(request.body.password, user.password)
-    } 
-    else {
-        response.send("Error")
-    } 
-    catch(err) {
+    } catch (error) {
         response.status(500).send()
     }
 })
